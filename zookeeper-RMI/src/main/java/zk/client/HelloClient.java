@@ -19,14 +19,16 @@ public class HelloClient {
     public static Logger logger= LoggerFactory.getLogger(HelloClient.class);
 
     public static void main(String[] args) {
-        try {
-            HelloRMIService hello = (HelloRMIService) Naming.lookup("rmi://localhost:1099/hello");
-            while (true) {
-                logger.info(hello.sayHello("wangyj"));
-                Thread.sleep(2000);
+        ServiceConsumer consumer= new ServiceConsumer();
+        while (true){
+            HelloRMIService helloRMIService=consumer.lookup();
+            try {
+                String result = helloRMIService.sayHello("wangyj");
+                System.out.println(result);
+                Thread.sleep(5000);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

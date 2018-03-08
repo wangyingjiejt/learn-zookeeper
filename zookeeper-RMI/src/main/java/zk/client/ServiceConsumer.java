@@ -16,8 +16,15 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadLocalRandom;
 
-
+/**
+ * 从zk获取RMI中发布的服务
+ * @User wangyj
+ * @Date 2018/3/8  下午10:54
+ * @param urlList
+ * @return
+ */
 public class ServiceConsumer {
 
     private Logger logger= LoggerFactory.getLogger(ServiceConsumer.class);
@@ -35,8 +42,6 @@ public class ServiceConsumer {
     }
 
 
-
-
     //在RMI中获取service
     public <T extends Remote> T lookup(){
         T service =null;
@@ -45,10 +50,14 @@ public class ServiceConsumer {
             String url;
             if (size==1){
                 url=urlList.get(0);
+                logger.info("using only url:{}",url);
             }else {
-//                url=urlList.get(ThreadLocalRandom.current().nextInt(size));
+                url=urlList.get(ThreadLocalRandom.current().nextInt(size));
+                logger.info("using random url:{}",url);
             }
+            service=lookupService(url);
         }
+        return service;
     }
 
 

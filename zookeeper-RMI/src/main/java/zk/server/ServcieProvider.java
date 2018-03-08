@@ -13,7 +13,7 @@ import java.rmi.registry.LocateRegistry;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * RMI向zk注册并给client提供服务
+ * RMI向zk注册发布服务
  * @user wangyj
  * @date 2018/3/8 16:11
  */
@@ -55,8 +55,8 @@ public class ServcieProvider {
     private void createNode(ZooKeeper zk, String url) {
         try {
             byte[] data = url.getBytes();
-            //创建一个临时有序节点 存放的数据为该server在RMI中注册的url  CREATOR_ALL_ACL--不设置访问权限
-            String path = zk.create(Constant.ZK_PROVIER_PATH,data, ZooDefs.Ids.CREATOR_ALL_ACL, CreateMode.EPHEMERAL_SEQUENTIAL);
+            //创建一个临时有序节点 存放的数据为该server在RMI中注册的url  OPEN_ACL_UNSAFE--不设置访问权限
+            String path = zk.create(Constant.ZK_PROVIER_PATH,data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
             logger.info("create zookeeper node ({}->>{})",path,url);
         } catch (KeeperException e) {
             e.printStackTrace();

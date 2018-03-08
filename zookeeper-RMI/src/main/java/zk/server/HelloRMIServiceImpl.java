@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * 实现定义的远程接口
+ * 实现sayHello方法
  * @user wangyj
  * @date 2018/3/8 10:57
  */

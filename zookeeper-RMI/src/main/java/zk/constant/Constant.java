@@ -2,7 +2,7 @@ package zk.constant;
 
 public interface Constant {
 
-    String ZK_PATH="localhost:2181";
+    String ZK_PATH="master:2181";
 
     int ZK_SESSION_TIMEOUT =5000;
 
