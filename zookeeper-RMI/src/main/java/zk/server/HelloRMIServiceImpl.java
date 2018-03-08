@@ -1,5 +1,8 @@
 package zk.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -10,11 +13,13 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class HelloRMIServiceImpl  extends UnicastRemoteObject implements HelloRMIService{
 
+    private Logger logger= LoggerFactory.getLogger(HelloRMIServiceImpl.class);
+
     //这个实现必须要有一个显式的构造函数，且要抛出RemoteException异常
     public HelloRMIServiceImpl() throws RemoteException{super();};
 
     public String sayHello(String name) throws RemoteException {
-        System.out.println("sayHello was called once ...");
+        logger.info("sayHello was called once ...");
         return "Hello,"+name;
     }
 
